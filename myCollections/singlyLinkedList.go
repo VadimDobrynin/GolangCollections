@@ -1,6 +1,9 @@
 package myCollections
 
-import "fmt"
+import (
+	"errors"
+	"fmt"
+)
 
 func SaYHallo() {
 	fmt.Println("Hello, from myCollections!!!!!")
@@ -119,4 +122,36 @@ func (head *SinglyLinkedList) Find(val int64) int64 {
 		}
 	}
 	return -1
+}
+
+// Size возвращает количество элементов в односвязном списке
+func (head *SinglyLinkedList) Size() uint64 {
+	var count uint64
+	v := *head.Head
+	for true {
+		count++
+		if v.Next != nil {
+			v = *v.Next
+		} else {
+			break
+		}
+	}
+	return count
+}
+
+// GetValue возвращает количество элементов в односвязном списке
+func (head *SinglyLinkedList) GetValue(index uint64) (int64, error) {
+	var count uint64
+	v := *head.Head
+	for &v != nil {
+		if count == index {
+			return v.Val, nil
+		} else if v.Next != nil {
+			v = *v.Next
+			count++
+		} else {
+			return 0, errors.New("Not found element with index ")
+		}
+	}
+	return 0, errors.New("Not found element with index ")
 }
