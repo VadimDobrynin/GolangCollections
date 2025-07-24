@@ -19,11 +19,10 @@ type NodeSinglyLinkedList struct {
 }
 
 func NewSinglyLinkedList(val int64) *SinglyLinkedList {
-	l := NodeSinglyLinkedList{
+	return &SinglyLinkedList{Head: &NodeSinglyLinkedList{
 		Val:  val,
 		Next: nil,
-	}
-	return &SinglyLinkedList{Head: &l}
+	}}
 }
 
 // Prepend добавляет элемент в начало списка
