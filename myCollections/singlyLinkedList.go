@@ -28,12 +28,10 @@ func NewSinglyLinkedList(val int64) *SinglyLinkedList {
 
 // Prepend добавляет элемент в начало списка
 func (head *SinglyLinkedList) Prepend(val int64) {
-	l := NodeSinglyLinkedList{
+	head.Head = &NodeSinglyLinkedList{
 		Val:  val,
-		Next: nil,
+		Next: head.Head,
 	}
-	l.Next = head.Head
-	head.Head = &l
 }
 
 // Print печает в консоль весь односвязный список
