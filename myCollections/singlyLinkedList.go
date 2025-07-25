@@ -5,7 +5,7 @@ import (
 	"fmt"
 )
 
-func SaYHallo() {
+func SayHallo() {
 	fmt.Println("Hello, from myCollections!!!!!")
 }
 
@@ -109,14 +109,11 @@ func (list *SinglyLinkedList) RemoveByIndex(index uint64) {
 // если элемент не найден, возвращает -1
 func (list *SinglyLinkedList) Find(val int64) int64 {
 	v := list.Head
-	var ind int64 = 0
-	for v != nil {
+	for ind := int64(0); v != nil; ind++ {
 		if v.Val == val {
 			return ind
-		} else {
-			ind++
-			v = v.Next
 		}
+		v = v.Next
 	}
 	return -1
 }
@@ -124,31 +121,22 @@ func (list *SinglyLinkedList) Find(val int64) int64 {
 // Size возвращает количество элементов в односвязном списке
 func (list *SinglyLinkedList) Size() uint64 {
 	var count uint64
-	v := *list.Head
-	for {
+	v := list.Head
+	for v != nil {
 		count++
-		if v.Next != nil {
-			v = *v.Next
-		} else {
-			break
-		}
+		v = v.Next
 	}
 	return count
 }
 
 // GetValue возвращает количество элементов в односвязном списке
 func (list *SinglyLinkedList) GetValue(index uint64) (int64, error) {
-	var count uint64
-	v := *list.Head
-	for &v != nil {
+	v := list.Head
+	for count := uint64(0); &v != nil; count++ {
 		if count == index {
 			return v.Val, nil
-		} else if v.Next != nil {
-			v = *v.Next
-			count++
-		} else {
-			return 0, errors.New(fmt.Sprintf("Not found element with index %d", index))
 		}
+		v = v.Next
 	}
 	return 0, errors.New(fmt.Sprintf("Not found element with index %d", index))
 }

@@ -115,3 +115,17 @@ func TestSize(t *testing.T) {
 		t.Errorf("ml.Size = %d; want %d", got, want)
 	}
 }
+
+func TestFind(t *testing.T) {
+	ml := NewSinglyLinkedList(777)
+	ml.Append(1)
+	ml.Append(2)
+	ml.Append(3)
+	ml.Append(4)
+	ml.Append(5)
+	var want int64 = 3
+	got := ml.Find(3)
+	if want != got {
+		t.Errorf("ml.Find(3) = %d; want %d", got, want)
+	}
+}
