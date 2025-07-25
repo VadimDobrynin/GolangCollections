@@ -27,16 +27,16 @@ func NewSinglyLinkedList(val int64) *SinglyLinkedList {
 }
 
 // Prepend добавляет элемент в начало списка
-func (head *SinglyLinkedList) Prepend(val int64) {
-	head.Head = &NodeSinglyLinkedList{
+func (list *SinglyLinkedList) Prepend(val int64) {
+	list.Head = &NodeSinglyLinkedList{
 		Val:  val,
-		Next: head.Head,
+		Next: list.Head,
 	}
 }
 
 // Print печает в консоль весь односвязный список
-func (head *SinglyLinkedList) Print() {
-	v := *head.Head
+func (list *SinglyLinkedList) Print() {
+	v := *list.Head
 	for {
 		fmt.Println(v.Val)
 		if v.Next != nil {
@@ -48,8 +48,8 @@ func (head *SinglyLinkedList) Print() {
 }
 
 // Append добавляет элемент в конец односвязного списка
-func (head *SinglyLinkedList) Append(val int64) {
-	v := head.Head
+func (list *SinglyLinkedList) Append(val int64) {
+	v := list.Head
 	for {
 		if v.Next != nil {
 			v = v.Next
@@ -64,12 +64,12 @@ func (head *SinglyLinkedList) Append(val int64) {
 }
 
 // RemoveByValue удаляет элемент по значению
-func (head *SinglyLinkedList) RemoveByValue(val int64) {
-	if head.Head.Val == val {
-		head.Head = head.Head.Next
+func (list *SinglyLinkedList) RemoveByValue(val int64) {
+	if list.Head.Val == val {
+		list.Head = list.Head.Next
 		return
 	}
-	v := head.Head
+	v := list.Head
 	for {
 		if v.Next != nil {
 			if v.Next.Val == val {
@@ -84,13 +84,13 @@ func (head *SinglyLinkedList) RemoveByValue(val int64) {
 }
 
 // RemoveByIndex удаляет элемент по индексу
-func (head *SinglyLinkedList) RemoveByIndex(index uint64) {
+func (list *SinglyLinkedList) RemoveByIndex(index uint64) {
 	if index == 0 {
-		head.Head = head.Head.Next
+		list.Head = list.Head.Next
 		return
 	}
 	var ind uint64 = 1
-	v := head.Head
+	v := list.Head
 	for true {
 		if v.Next != nil {
 			if ind == index {
@@ -107,8 +107,8 @@ func (head *SinglyLinkedList) RemoveByIndex(index uint64) {
 
 // Find принимает на вход значение элемента списка и возвращает его индекс,
 // если элемент не найден, возвращает -1
-func (head *SinglyLinkedList) Find(val int64) int64 {
-	v := head.Head
+func (list *SinglyLinkedList) Find(val int64) int64 {
+	v := list.Head
 	var ind int64 = 0
 	for v != nil {
 		if v.Val == val {
@@ -122,9 +122,9 @@ func (head *SinglyLinkedList) Find(val int64) int64 {
 }
 
 // Size возвращает количество элементов в односвязном списке
-func (head *SinglyLinkedList) Size() uint64 {
+func (list *SinglyLinkedList) Size() uint64 {
 	var count uint64
-	v := *head.Head
+	v := *list.Head
 	for {
 		count++
 		if v.Next != nil {
@@ -137,9 +137,9 @@ func (head *SinglyLinkedList) Size() uint64 {
 }
 
 // GetValue возвращает количество элементов в односвязном списке
-func (head *SinglyLinkedList) GetValue(index uint64) (int64, error) {
+func (list *SinglyLinkedList) GetValue(index uint64) (int64, error) {
 	var count uint64
-	v := *head.Head
+	v := *list.Head
 	for &v != nil {
 		if count == index {
 			return v.Val, nil
