@@ -7,6 +7,7 @@ import (
 
 type LinkedList struct {
 	Head *NodeLinkedList
+	size uint64
 }
 
 type NodeLinkedList struct {
@@ -21,7 +22,8 @@ func NewLinkedList(val int64) *LinkedList {
 		Val:  val,
 		Prev: nil,
 		Next: nil,
-	}}
+	},
+		size: 1}
 }
 
 // Prepend добавляет элемент в начало списка
@@ -30,6 +32,7 @@ func (list *LinkedList) Prepend(val int64) {
 		Val:  val,
 		Next: list.Head,
 	}
+	list.size++
 }
 
 // Print печает в консоль весь двусвязный список(в прямом направлении)
@@ -60,6 +63,7 @@ func (list *LinkedList) Append(val int64) {
 		Prev: v,
 		Next: nil,
 	}
+	list.size++
 }
 
 // RemoveByValue удаляет элемент по значению
@@ -80,6 +84,7 @@ func (list *LinkedList) RemoveByValue(val int64) {
 			break
 		}
 	}
+	list.size--
 }
 
 // RemoveByIndex удаляет элемент по индексу
@@ -94,6 +99,7 @@ func (list *LinkedList) RemoveByIndex(index uint64) {
 		if v.Next != nil {
 			if ind == index {
 				v.Next = v.Next.Next
+				list.size--
 				break
 			}
 			v = v.Next
@@ -119,13 +125,14 @@ func (list *LinkedList) Find(val int64) int64 {
 
 // Size возвращает количество элементов в односвязном списке
 func (list *LinkedList) Size() uint64 {
-	var count uint64
-	v := list.Head
-	for v != nil {
-		count++
-		v = v.Next
-	}
-	return count
+	return list.size
+	//var count uint64
+	//v := list.Head
+	//for v != nil {
+	//	count++
+	//	v = v.Next
+	//}
+	//return count
 }
 
 // GetValue возвращает элемент по индексу в двусвязном
