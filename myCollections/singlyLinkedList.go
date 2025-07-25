@@ -18,6 +18,7 @@ type NodeSinglyLinkedList struct {
 	Next *NodeSinglyLinkedList
 }
 
+// NewSinglyLinkedList возвращает объект "односвязный список"
 func NewSinglyLinkedList(val int64) *SinglyLinkedList {
 	return &SinglyLinkedList{Head: &NodeSinglyLinkedList{
 		Val:  val,
@@ -36,7 +37,7 @@ func (head *SinglyLinkedList) Prepend(val int64) {
 // Print печает в консоль весь односвязный список
 func (head *SinglyLinkedList) Print() {
 	v := *head.Head
-	for true {
+	for {
 		fmt.Println(v.Val)
 		if v.Next != nil {
 			v = *v.Next
@@ -48,19 +49,18 @@ func (head *SinglyLinkedList) Print() {
 
 // Append добавляет элемент в конец односвязного списка
 func (head *SinglyLinkedList) Append(val int64) {
-	l := NodeSinglyLinkedList{
-		Val:  val,
-		Next: nil,
-	}
 	v := head.Head
-	for true {
+	for {
 		if v.Next != nil {
 			v = v.Next
 		} else {
 			break
 		}
 	}
-	v.Next = &l
+	v.Next = &NodeSinglyLinkedList{
+		Val:  val,
+		Next: nil,
+	}
 }
 
 // RemoveByValue удаляет элемент по значению
@@ -70,7 +70,7 @@ func (head *SinglyLinkedList) RemoveByValue(val int64) {
 		return
 	}
 	v := head.Head
-	for true {
+	for {
 		if v.Next != nil {
 			if v.Next.Val == val {
 				v.Next = v.Next.Next
@@ -125,7 +125,7 @@ func (head *SinglyLinkedList) Find(val int64) int64 {
 func (head *SinglyLinkedList) Size() uint64 {
 	var count uint64
 	v := *head.Head
-	for true {
+	for {
 		count++
 		if v.Next != nil {
 			v = *v.Next
@@ -147,8 +147,8 @@ func (head *SinglyLinkedList) GetValue(index uint64) (int64, error) {
 			v = *v.Next
 			count++
 		} else {
-			return 0, errors.New("Not found element with index ")
+			return 0, errors.New(fmt.Sprintf("Not found element with index %d", index))
 		}
 	}
-	return 0, errors.New("Not found element with index ")
+	return 0, errors.New(fmt.Sprintf("Not found element with index %d", index))
 }
